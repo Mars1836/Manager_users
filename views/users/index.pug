@@ -1,0 +1,50 @@
+extends ../layouts/common.pug
+block content
+    .container
+        .row 
+            h2.mb-3.text-center Users manager
+            div.row
+                .input-group.mb-3.col
+                    input.form-control(type="text",style="max-width:40rem", placeholder="Type username", aria-label="Recipient's username", aria-describedby="button-addon2",name="search")
+                    button#button-addon2.btn.btn-outline-secondary.disabled(type="button") Search
+                div.col
+                    button.btn.btn-outline-primary.text-end(id="createBtn") Create user
+            .col-12(id="table") 
+                table.table
+                    thead
+                        tr
+                            th(scope="col") STT
+                            th(scope="col") Name
+                            th(scope="col") Email
+                            th(scope="col") Phone
+                            th(scope="col") Address
+                            th(scope="col") Action
+                    tbody   
+            .col-4.visually-hidden#createForm
+                form(action="", method="post", id="createForm")
+                    .mb-3
+                        .form-group 
+                            label.form-label(for="exampleInputName1") Name
+                            input#name.form-control(type="text", aria-describedby="nameHelp" name="name")
+                            span#error.invalid-feedback
+                    .mb-3
+                        .form-group 
+                            label.form-label(for="exampleInputEmail1") Email
+                            input#email.form-control(type="text", aria-describedby="emailHelp" name="email")
+                            span#error.invalid-feedback
+                    .mb-3
+                        .form-group 
+                            label.form-label(for="exampleInputPhone1") Phone
+                            input#phone.form-control(type="text", aria-describedby="phoneHelp" name="phone")
+                            span#error.invalid-feedback
+                    .mb-3
+                       .form-group 
+                            label.form-label(for="exampleInputPassword1") Address 
+                            input#address.form-control(type="text" name="address")
+                            span#error.invalid-feedback
+                    button.btn.btn-primary(type="submit") Submit
+    script(type="text/javascript",src="/scripts/validator.js")
+    script(type="text/javascript",src="/scripts/users_validator.js")
+    script(type="text/javascript", src="/scripts/users_index.js")
+
+

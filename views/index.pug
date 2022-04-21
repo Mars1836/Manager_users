@@ -1,0 +1,7 @@
+extends layouts/common.pug 
+block content     
+    h1 Hello #{name}
+    a(href="/users") User
+    form(action="/" method="post")
+        input(type="text" name="name")
+        input(type="submit")
