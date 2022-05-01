@@ -1,25 +1,84 @@
 extends ../layouts/common.pug
+block linkStyle 
+    link(rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css')
 block content
     .container
         .row 
             h2.mb-3.text-center Users manager
             div.row
-                .input-group.mb-3.col
-                    input.form-control(type="text",style="max-width:40rem", placeholder="Type username", aria-label="Recipient's username", aria-describedby="button-addon2",name="search")
-                    button#button-addon2.btn.btn-outline-secondary.disabled(type="button") Search
                 div.col
-                    button.btn.btn-outline-primary.text-end(id="createBtn") Create user
+                    button.btn.btn-outline-primary.text-end.me-4(id="createBtn") Create user
+                    a.btn.btn-secondary.position-relative(href="/users/trash")
+                        i.bi.bi-trash
+                        span.position-absolute.top-0.start-100.translate-middle.badge.rounded-pill.bg-danger
+                            | #{countTrash}
+                            span.visually-hidden unread messages
+                form#myform.mt-3(action="")
+                    input(type="hidden" name="page")
+                    .input-group.mb-3.col
+                        input.form-control(type="text",style="max-width:40rem", placeholder="Type username", aria-label="Recipient's username", aria-describedby="button-addon2",name="name",value=`${nameFilter}`)
+                        button#button-addon2.btn.btn-outline-secondary(type="submit") Search
+                form.form-check.me-2#form-check(action='/users/action' method="post")
+                    .d-flex
+                        .form-check.me-2
+                            input.form-check-input.check-box-all(type='checkbox' value='')
+                            label.form-check-label(for='') Select all
+                        select.form-select.form-select-sm.me-2(aria-label='Default select example' style="width:10rem" name="action")
+                            option(selected='' value='') -- Action --
+                            option(value='delete') Delete
+                        btn.btn-action.btn.btn-primary.btn-sm.btn-sm(type="submit") Action
             .col-12(id="table") 
                 table.table
                     thead
                         tr
-                            th(scope="col") STT
-                            th(scope="col") Name
-                            th(scope="col") Email
-                            th(scope="col") Phone
-                            th(scope="col") Address
-                            th(scope="col") Action
-                    tbody   
+                            th.text-center(scope="col") #
+                            th.text-center(scope="col") STT
+                            th.text-center(scope="col") Name
+                            th.text-center(scope="col") Email
+                            th.text-center(scope="col") Phone
+                            th.text-center(scope="col") Address
+                            th.text-center(scope="col") Action
+                        - let i = index;
+                    -if(users.length != 0)
+                        tbody
+                            each user in users 
+                                tr 
+                                    th.text-center
+                                        input(type='checkbox' form="form-check" name='usersSelect[]' value=`${user._id}`)
+                                    td.text-center= i
+                                    td.text-center= user.name 
+                                    td.text-center= user.email 
+                                    td.text-center= user.phone 
+                                    td.text-center= user.address
+                                    td.text-center
+                                        a(href=`/users/update/${user._id}`)
+                                            button(class="btn btn-outline-success btn-sm me-2",type="button") Update
+                                        button(class="btn btn-outline-danger btn-sm",type="button", onclick=`removeAction('${user._id}')`) Remove
+                                - i++
+                -if(users.length == 0)
+                    p.text-center Không có users 
+
+                nav(aria-label='Page navigation example')
+                    - let p = spage + 1
+                    ul.pagination
+                        - if (spage != 1)
+                            li.page-item
+                                button.page-link(onclick=`getPage(${spage-1})`) 
+                                    i(class="bi bi-arrow-left"  width='32' height='32')
+                        - if(epage > 1)            
+                            li.page-item
+                                button.page-link(onclick=`getPage(${spage})`)= spage
+                        while p <= epage - 1 
+                            li.page-item
+                                button.page-link(onclick=`getPage(${p})`) #{p}
+                            - p++
+                        - if(epage > 1)
+                            li.page-item
+                                button.page-link(onclick=`getPage(${epage})`)= epage
+                        - if (epage != maxpage)
+                            li.page-item
+                                button.page-link(href=`/users?page=${cpage+1}`) 
+                                    i(class="bi bi-arrow-right"  width='32' height='32')
             .col-4.visually-hidden#createForm
                 form(action="", method="post", id="createForm")
                     .mb-3
@@ -43,8 +102,12 @@ block content
                             input#address.form-control(type="text" name="address")
                             span#error.invalid-feedback
                     button.btn.btn-primary(type="submit") Submit
-    script(type="text/javascript",src="/scripts/validator.js")
-    script(type="text/javascript",src="/scripts/users_validator.js")
-    script(type="text/javascript", src="/scripts/users_index.js")
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js')
+    script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js")
+    script(type="text/javascript",src="/scripts/users/api.js")
+    script(type="text/javascript",src="/scripts/users/checkbox_handler.js")
+    script(type="text/javascript",src="/scripts/users/validator.js")
+    script(type="text/javascript",src="/scripts/users/users_validator.js")
+    script(type="text/javascript", src="/scripts/users/users_index.js")
 
 

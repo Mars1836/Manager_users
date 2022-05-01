@@ -1,7 +1,33 @@
-extends layouts/common.pug 
+extends layouts/common.pug
+block linkStyle 
+    link(rel="stylesheet", href="/css/home/style.css")
 block content     
-    h1 Hello #{name}
-    a(href="/users") User
-    form(action="/" method="post")
-        input(type="text" name="name")
-        input(type="submit")
+    .container.mt-5
+        .row.d-flex.justify-content-center
+            .col-6
+                .card.p-3.py-4
+                    .text-center
+                        img.rounded-circle(src=`/uploads/img/${admin.infor.avatar}` width='100')
+                    .text-center.mt-3
+                        span.bg-secondary.p-1.px-4.rounded.text-white Pro
+                        h5.mt-2.mb-0= admin.infor.name
+                        span= admin.infor.position
+                        .px-4.mt-1
+                            p.fonts
+                                | #{admin.infor.decription}
+                        ul.social-list
+                            li
+                                i.fa.fa-facebook
+                            li
+                                i.fa.fa-dribbble
+                            li
+                                i.fa.fa-instagram
+                            li
+                                i.fa.fa-linkedin
+                            li
+                                i.fa.fa-google
+                        .buttons
+                            a(href="/infor") 
+                                button.btn.btn-outline-primary.px-4 Update Infor
+                            a(href="/users")
+                                button.btn.btn-outline-primary.px-4.ms-3 Users

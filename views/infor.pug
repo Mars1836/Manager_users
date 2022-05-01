@@ -1,0 +1,30 @@
+extends ./layouts/common.pug
+block content
+    .container
+        .d-flex.justify-content-center#InforForms
+            form(style="width:50rem" , id="updateForm" method="post" action="/infor" enctype="multipart/form-data")
+                input(type="hidden" value=admin._id name="id")
+                .mb-3
+                    .form-group 
+                        label.form-label(for="exampleInputName1") Avatar
+                        input#name.form-control(type="file", aria-describedby="" name="avatar" value=admin.infor.avatar)
+                        span#error.invalid-feedback
+                .mb-3
+                    .form-group 
+                        label.form-label(for="exampleInputName1") Name
+                        input#name.form-control(type="text", aria-describedby="" name="name" value=`${admin.infor.name}`)
+                        span#error.invalid-feedback
+                .mb-3
+                    .form-group 
+                        label.form-label(for="") Position
+                        input#position.form-control(type="text", aria-describedby="" name="position" value=admin.infor.position)
+                        span#error.invalid-feedback
+                .mb-3
+                    .form-group 
+                        label.form-label(for="exampleInputEmail1") Decription
+                        input#email.form-control(type="text", aria-describedby="" name="email" value=admin.infor.decription)
+                        span#error.invalid-feedback
+                button.btn.btn-primary(type="submit") Submit
+    script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js")
+    script(src="/scripts/users/validator.js" type="text/javascript")
+    script(src="/scripts/infor_validator.js" type="text/javascript")

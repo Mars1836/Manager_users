@@ -1,0 +1,30 @@
+extends ../layouts/common.pug
+block content
+    .container
+        .d-flex.justify-content-center#updateForms
+            form(style="width:50rem" , id="updateForm" method="post" action="")
+                input(type="hidden" name="id" value=`${user.id}`)
+                .mb-3
+                    .form-group 
+                        label.form-label(for="exampleInputName1") Name
+                        input#name.form-control(type="text", aria-describedby="nameHelp" name="name" value=user.name)
+                        span#error.invalid-feedback
+                .mb-3
+                    .form-group 
+                        label.form-label(for="exampleInputEmail1") Email
+                        input#email.form-control(type="text", aria-describedby="emailHelp" name="email" value=user.email)
+                        span#error.invalid-feedback
+                .mb-3
+                    .form-group 
+                        label.form-label(for="exampleInputPhone1") Phone
+                        input#phone.form-control(type="text", aria-describedby="phoneHelp" name="phone" value=user.phone)
+                        span#error.invalid-feedback
+                .mb-3
+                    .form-group 
+                        label.form-label(for="exampleInputPassword1") Address 
+                        input#address.form-control(type="text" name="address" value=user.address)
+                        span#error.invalid-feedback
+                button.btn.btn-primary(type="submit") Submit
+    script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js")
+    script(src="/scripts/users/validator.js" type="text/javascript")
+    script(src="/scripts/users/update/update_validator.js" type="text/javascript")

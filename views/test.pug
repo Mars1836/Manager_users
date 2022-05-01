@@ -1,0 +1,16 @@
+extends ./layouts/common.pug 
+block content
+    form(action="",method="post",enctype="multipart/form-data")
+        .form-group
+            label.form-label.me-2 Name
+            input(type="text",name="name")
+            br
+            label.form-label.me-2 Avatar 
+            input(type="file",name="avt")
+            br 
+            input(type="submit",value="Send")
+    ul 
+        each user in users
+            li 
+                span.me-4= user.name 
+                img(src=`${user.avt}`, class="rounded-circle", width='64')

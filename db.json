@@ -1,11 +1,106 @@
 {
   "users": [
     {
-      "name": "Vũ Công Hậu",
-      "email": "hauhpll123@gmail.com",
+        
+    },
+    {
+      "id": "7f7c8cdf-8627-4a00-9325-55dec1838442",
+      "name": "Ly Sinnatt",
+      "email": "lsinnatt1@wiley.com",
+      "phone": "527-849-3146",
+      "address": "863-467-5428"
+    },
+    {
+      "id": "0973c716-e7dc-418e-9eaf-5623f3ac27f3",
+      "name": "Don Keegan",
+      "email": "dkeegan2@cargocollective.com",
+      "phone": "217-836-4217",
+      "address": "812-263-2780"
+    },
+    {
+      "name": "Vũ Công Hậuuu",
+      "email": "hauvu@gmail.com",
       "phone": "0394925277",
       "address": "Thủy Nguyên",
-      "id": "gYDGY-uqH"
+      "id": "L_queW4NV"
+    }
+  ],
+  "admin": [
+    {
+      "email": "admin1@gmail.com",
+      "password": "123",
+      "name": "Hậu Vũ",
+      "id": "asdaqqweqw"
+    },
+    {
+      "email": "admin2@gmail.com",
+      "password": "123",
+      "name": "Linh",
+      "id": "asadsa3212w"
+    }
+  ],
+  "posts": [
+    {
+      "name": "Peter",
+      "avt": "update\\4a2c0157a0c1154aefdca19f63e41591"
+    },
+    {
+      "name": "Vũ Công Hậu",
+      "avt": "update\\9f43db317a9a2a07593e36b46ef1a155"
+    },
+    {
+      "name": "Hậu Vũ",
+      "avt": "update\\31d0fa30cf4a15f2ee835f12914e4625"
+    },
+    {
+      "name": "Peter",
+      "avt": "update\\2cff0b3cc5d49005d73898ab396cce4b"
+    },
+    {
+      "name": "Hau vu",
+      "avt": "update\\c094079e4eed689817cd8e8f438c7db9"
+    },
+    {
+      "recipient": "hauvu",
+      "money": 1000000,
+      "userId": "asdaqqweqw"
+    }
+  ],
+  "tranfers": [
+    {
+      "recipient": "hauvu",
+      "money": 10000,
+      "userId": "asdaqqweqw"
+    },
+    {
+      "recipient": "hauvu",
+      "money": 1000000,
+      "userId": "asdaqqweqw"
+    },
+    {
+      "recipient": "hauvu",
+      "money": 10,
+      "userId": "asdaqqweqw"
+    },
+    {
+      "recipient": "hehe",
+      "money": 123,
+      "userId": "asdaqqweqw"
+    },
+    {
+      "recipient": "codelife",
+      "money": 9999999
+    },
+    {
+      "recipient": "codelife",
+      "money": 9999999,
+      "userId": "asdaqqweqw"
+    },
+    {
+      "_csrf": "cj7JjAHh-S-HyeE   mGJ-haAOCHjQo2b2HW2po",
+      "recipient": "linh",
+      "money": 12312421,
+      "userId": "asdaqqweqw"
     }
   ]
 }
