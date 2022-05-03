@@ -5,13 +5,15 @@ block content
     .container
         .row 
             h2.mb-3.text-center Users deleted
-            form#myform(action='')
+            form#myform
+                input(type="hidden" name="field")
+                input(type="hidden" name="type" value="desc")
                 input(type="hidden" name="page")
+                input(type="hidden" name="name")
                 div.row
-                    .input-group.mb-3.col
-                        input.form-control(type="text",style="max-width:40rem", placeholder="Type username", aria-label="Recipient's username", aria-describedby="button-addon2",name="name" value=`${nameFilter}`)
-                        button#button-addon2.btn.btn-outline-secondary(type="input") Search
-            .col-12(id="table")
+            form#form-search.input-group.mb-3.col
+                input.form-control(type="text",style="max-width:40rem", placeholder="Type username", aria-label="Recipient's username", aria-describedby="button-addon2",name="name" value=`${nameFilter}`)
+                button#button-addon2.btn.btn-outline-secondary(type="input") Search
             form.form-check.me-2#form-check(action='/users/trash/action' method="post")
                 .d-flex
                     .form-check.me-2
@@ -22,14 +24,27 @@ block content
                         option(value='delete') Delete
                         option(value='restore') Restore
                     btn.btn-action.btn.btn-primary.btn-sm.btn-sm(type="submit") Action
+            .col-12(id="table")
                 table.table
                     thead
                         tr
                             th.text-center(scope="col") #
                             th.text-center(scope="col") STT
-                            th.text-center(scope="col") Name
-                            th.text-center(scope="col") Email
-                            th.text-center(scope="col") Time
+                            th.text-center(scope="col")
+                                button.btn-field.btn.p-0#btn-name-input(style="outline:0" value="name") Name
+                                    i.bi.bi-arrow-down-up.ms-1#default-sort
+                                    i.bi.bi-arrow-down#asc-sort.visually-hidden
+                                    i.bi.bi-arrow-up#desc-sort.visually-hidden
+                            th.text-center(scope="col")
+                                button.btn-field.btn.p-0#btn-name-input(style="outline:0" value="email") Email
+                                    i.bi.bi-arrow-down-up.ms-1#default-sort
+                                    i.bi.bi-arrow-down#asc-sort.visually-hidden
+                                    i.bi.bi-arrow-up#desc-sort.visually-hidden
+                            th.text-center(scope="col")
+                                button.btn-field.btn.p-0#btn-name-input(style="outline:0" value="deletedAt") Time
+                                    i.bi.bi-arrow-down-up.ms-1#default-sort
+                                    i.bi.bi-arrow-down#asc-sort.visually-hidden
+                                    i.bi.bi-arrow-up#desc-sort.visually-hidden
                             th.text-center(scope="col") Action
                         - let i = index;
                     -if(users.length != 0)
@@ -67,7 +82,7 @@ block content
                                 button.page-link(onclick=`getPage(${epage})`)= epage
                         - if (epage != maxpage)
                             li.page-item
-                                button.page-link(href=`/users?page=${cpage+1}`) 
+                                button.page-link(onclick=`getPage(${epage})`) 
                                     i(class="bi bi-arrow-right"  width='32' height='32')
     form.restore-form(name="restore-user" method="POST" action="")
     form.delete-form(name="delete-user" method="POST" action="")
@@ -75,8 +90,8 @@ block content
     script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js")
     script(src='/scripts/users/restore_and_delete.js' type="text/javascript")
     script(src='/scripts/users/checkbox_handler.js')
-    script(src='/scripts/users/search_users.js')
-
+    script(type="text/javascript", src="/scripts/users/sort.js")
+    
 
 
     

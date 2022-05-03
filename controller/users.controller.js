@@ -6,7 +6,14 @@ class Controller{
     }
     async index(req,res){
         const nameFilter = req.query.name|| '';
-        const usersdb = (await axios.get(process.env.USERS_API_URL)).data
+        const usersdb = (await axios.get(process.env.USERS_API_URL,{
+            params:{
+                sort : {
+                    field : req.query.field,
+                    type : req.query.type
+                }
+            }
+        })).data
         const users = usersdb.filter((user)=>{
             return user.name.toUpperCase().includes(nameFilter.toUpperCase() )
         });
@@ -39,7 +46,6 @@ class Controller{
             phone: req.body.phone,
             address: req.body.address
         };
-        console.log(newU);
          axios.post(process.env.USERS_API_URL,newU)
          .then((res)=>{console.log(res)})
          .catch((err)=>{console.log(err)})
@@ -54,7 +60,14 @@ class Controller{
     }
     async trash(req,res){
         const nameFilter = req.query.name|| '';
-        const usersdb = (await axios.get(`${process.env.USERS_API_URL}/deleted`)).data
+        const usersdb = (await axios.get(`${process.env.USERS_API_URL}/deleted`,{
+            params:{
+                sort : {
+                    field : req.query.field,
+                    type : req.query.type
+                }
+            }
+        })).data
         const users = usersdb.filter((user)=>{
             return user.name.toUpperCase().includes(nameFilter.toUpperCase() )
         });

@@ -1,6 +1,7 @@
 extends ../layouts/common.pug
 block linkStyle 
     link(rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css')
+    link(rel="stylesheet", href="/css/users/style.css")
 block content
     .container
         .row 
@@ -13,11 +14,15 @@ block content
                         span.position-absolute.top-0.start-100.translate-middle.badge.rounded-pill.bg-danger
                             | #{countTrash}
                             span.visually-hidden unread messages
-                form#myform.mt-3(action="")
-                    input(type="hidden" name="page")
-                    .input-group.mb-3.col
-                        input.form-control(type="text",style="max-width:40rem", placeholder="Type username", aria-label="Recipient's username", aria-describedby="button-addon2",name="name",value=`${nameFilter}`)
-                        button#button-addon2.btn.btn-outline-secondary(type="submit") Search
+                    form#myform.mt-3()
+                        input(type="hidden" name="field")
+                        input(type="hidden" name="type" value="desc")
+                        input(type="hidden" name="page")
+                        input(type="hidden" name="name")
+                    form#form-search
+                        .input-group.mb-3.col
+                            input.form-control(type="text",style="max-width:40rem", placeholder="Type username", aria-label="Recipient's username", aria-describedby="button-addon2",name="name",value=`${nameFilter}`)
+                            button#button-addon2.btn.btn-outline-secondary(type="submit") Search
                 form.form-check.me-2#form-check(action='/users/action' method="post")
                     .d-flex
                         .form-check.me-2
@@ -33,10 +38,26 @@ block content
                         tr
                             th.text-center(scope="col") #
                             th.text-center(scope="col") STT
-                            th.text-center(scope="col") Name
-                            th.text-center(scope="col") Email
-                            th.text-center(scope="col") Phone
-                            th.text-center(scope="col") Address
+                            th.text-center(scope="col")
+                                button.btn-field.btn.p-0#btn-name-input(style="outline:0" value="name") Name
+                                    i.bi.bi-arrow-down-up.ms-1#default-sort
+                                    i.bi.bi-arrow-down#asc-sort.visually-hidden
+                                    i.bi.bi-arrow-up#desc-sort.visually-hidden      
+                            th.text-center(scope="col") 
+                                button.btn-field.btn.p-0#btn-email-input(style="outline:none" value="email") Email
+                                    i.bi.bi-arrow-down-up.ms-1#default-sort
+                                    i.bi.bi-arrow-down#asc-sort.visually-hidden
+                                    i.bi.bi-arrow-up#desc-sort.visually-hidden      
+                            th.btn-field.text-center(scope="col") 
+                                button.btn-field.btn.p-0#btn-phone-input(style="outline:none" value="phone") Phone
+                                    i.bi.bi-arrow-down-up.ms-1#default-sort
+                                    i.bi.bi-arrow-down#asc-sort.visually-hidden
+                                    i.bi.bi-arrow-up#desc-sort.visually-hidden                                          
+                            th.text-center(scope="col")                                             
+                                button.btn-field.btn.p-0#btn-address-input(style="outline:none" value="address") Address
+                                    i.bi.bi-arrow-down-up.ms-1#default-sort
+                                    i.bi.bi-arrow-down#asc-sort.visually-hidden
+                                    i.bi.bi-arrow-up#desc-sort.visually-hidden      
                             th.text-center(scope="col") Action
                         - let i = index;
                     -if(users.length != 0)
@@ -77,7 +98,7 @@ block content
                                 button.page-link(onclick=`getPage(${epage})`)= epage
                         - if (epage != maxpage)
                             li.page-item
-                                button.page-link(href=`/users?page=${cpage+1}`) 
+                                button.page-link(onclick=`getPage(${cpage+1})`) 
                                     i(class="bi bi-arrow-right"  width='32' height='32')
             .col-4.visually-hidden#createForm
                 form(action="", method="post", id="createForm")
@@ -109,5 +130,6 @@ block content
     script(type="text/javascript",src="/scripts/users/validator.js")
     script(type="text/javascript",src="/scripts/users/users_validator.js")
     script(type="text/javascript", src="/scripts/users/users_index.js")
+    script(type="text/javascript", src="/scripts/users/sort.js")
 
 

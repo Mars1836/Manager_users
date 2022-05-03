@@ -1,9 +1,16 @@
-import { Router } from "express";
+import e, { Router } from "express";
 import userModel from "../../model/users.model.js";
 class UsersApiController{
     async find(req,res){
-        var users = await userModel.find({});
-        res.json(users);
+        if(req.query.sort){
+            let sort = JSON.parse(req.query.sort);
+            var users = await userModel.find({}).sort({[sort.field] : sort.type});
+            res.json(users);
+        }
+        else{
+            var users = await userModel.find({});
+            res.json(users) 
+        };
     }
     async findById(req,res){
         const user = await userModel.findById(req.params.id).exec();
@@ -27,8 +34,15 @@ class UsersApiController{
         res.json(remove);   
     }
     async findDeleted(req,res){
-        const users = await userModel.findDeleted();
-        res.json(users);
+        if(req.query.sort){
+            let sort = JSON.parse(req.query.sort);
+            var users = await userModel.findDeleted({}).sort({[sort.field] : sort.type});
+            res.json(users);
+        }
+        else{
+            var users = await userModel.findDeleted({});
+            res.json(users) 
+        };
     }
     async restore(req,res){
         const user = await userModel.restore({_id : req.params.id})

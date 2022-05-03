@@ -1,15 +1,11 @@
-const tbody = document.querySelector("tbody");
+
 const table = document.querySelector("#table");
 const createBtn = document.querySelector("#createBtn");
 const createForm = document.querySelector("#createForm");
 const inputSearch = document.querySelector('input[name="name"]');
-const myForm = document.querySelector('#myform')
+
 var usersList = [];
 
-function getPage(e){
-    myForm.page.value = e;
-    myForm.submit();
-}
 createBtn.onclick = ()=>{
     let setFormOn = "col-7";
     let setFormOf = "col-12";
@@ -33,5 +29,4 @@ createBtn.onclick = ()=>{
     }
 
 }
-
-//Remove
+// sort
