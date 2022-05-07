@@ -5,16 +5,23 @@ class InforControl{
         res.render('infor.pug',{admin: res.locals.admin});
     }
     async index_post(req,res){
-        const admin ={}
+        const ADMIN_API_URL = req.protocol + '://' + req.get('host') + '/api/admin-infor';
+        const admin = {}
         admin.id = req.signedCookies.id;
         admin.infor = req.body;
-        admin.infor.avatar = req.file.filename;
-        axios.patch(process.env.ADMIN_API_URL,admin)
+        if(req.file){
+            admin.infor.avatar = req.file.filename;
+        }
+        else
+        {
+            admin.infor.avatar = 'avt.png';
+        }
+        axios.patch(ADMIN_API_URL,admin)
         .then((res)=>{
             console.log('update success!!')
         })
         .catch((err)=>{
-            console.log(err)
+            console.log(err);
         })
         res.redirect('/');
     }

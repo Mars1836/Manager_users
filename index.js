@@ -38,17 +38,18 @@ connectDB();
 app.set("view engine","pug");
 app.set("views",'./views');
 
-app.use('/',userApiRouter);
+
+app.use('/auth',routerAuth);
 app.use('/',adminInforApiRouter);
+app.use('/',userApiRouter);
 
 app.get('/',authMiddleware.authLogin,async (req,res)=>{
-
     res.render("index",{
         admin: res.locals.admin
     })
 })
 app.use('/infor',authMiddleware.authLogin,inforRouter);
-app.use('/auth',routerAuth);
+
 app.use('/users',authMiddleware.authLogin,routerUsers);
 
 app.listen(3000,()=>{

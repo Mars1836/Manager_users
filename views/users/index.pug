@@ -1,6 +1,5 @@
 extends ../layouts/common.pug
 block linkStyle 
-    link(rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css')
     link(rel="stylesheet", href="/css/users/style.css")
 block content
     .container
@@ -98,7 +97,7 @@ block content
                                 button.page-link(onclick=`getPage(${epage})`)= epage
                         - if (epage != maxpage)
                             li.page-item
-                                button.page-link(onclick=`getPage(${cpage+1})`) 
+                                button.page-link(onclick=`getPage(${cpage+1})`)
                                     i(class="bi bi-arrow-right"  width='32' height='32')
             .col-4.visually-hidden#createForm
                 form(action="", method="post", id="createForm")

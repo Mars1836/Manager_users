@@ -1,7 +1,6 @@
 import e from "express";
 import adminModel from "../model/admin.model.js";
 import axios from "axios";
-
 class AuthMiddleware{
     async authLogin(req,res,next){
         if(!req.signedCookies.id){
@@ -9,10 +8,9 @@ class AuthMiddleware{
             return;
         }
         else{
-            let admin = (await axios.get(process.env.ADMIN_API_URL,{params: {
-                _id: req.signedCookies.id,
-            }
-            })).data;
+            let admin =await adminModel.find({
+                _id: req.signedCookies.id
+            })
             if(!admin){
                 res.redirect('/auth');
                 return;

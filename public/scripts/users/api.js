@@ -1,7 +1,7 @@
-const url = "http://localhost:3000/api/users"
+const originURL = window.location.origin
 function removeAction(id){
     if(confirm("Do you really want to delete this record??")){
-        axios.delete(`${url}/${id}`);
+        axios.delete(`${originURL}/api/users/${id}`);
        location.reload();
     }
 }

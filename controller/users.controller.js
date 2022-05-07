@@ -1,26 +1,33 @@
 import axios from "axios";
 import userModel from "../model/users.model.js";
+import adminModel from "../model/admin.model.js";
 class Controller{
     constructor(){
 
     }
     async index(req,res){
         const nameFilter = req.query.name|| '';
-        const usersdb = (await axios.get(process.env.USERS_API_URL,{
+        const url = req.protocol + '://' + req.get('host') + '/api/users';
+        const usersdb = (await axios.get(url,{
+            auth: {
+                username : res.locals.admin.email,
+                password : res.locals.admin.password
+            },
             params:{
                 sort : {
                     field : req.query.field,
                     type : req.query.type
                 }
             }
-        })).data
+        }, )).data
         const users = usersdb.filter((user)=>{
-            return user.name.toUpperCase().includes(nameFilter.toUpperCase() )
+            return user.name?.toUpperCase().includes(nameFilter.toUpperCase() )
         });
         const max = 5;
         const num = 3;
+        const admin = res.locals.admin
         const maxpage = Math.ceil(users.length/max);
-        const countTrash = await userModel.countDeleted({});
+        const countTrash = await userModel.countDeleted({_id : {$in : admin.users}});
         let page = parseInt(req.query.page)||1;
         let spage;
         if(page === maxpage){
@@ -46,8 +53,14 @@ class Controller{
             phone: req.body.phone,
             address: req.body.address
         };
-         axios.post(process.env.USERS_API_URL,newU)
-         .then((res)=>{console.log(res)})
+        const url = req.protocol + '://' + req.get('host') + '/api/users';
+         axios.post(url,newU,{
+            auth:{ 
+                username: res.locals.admin.email,
+                password: res.locals.admin.password
+            }
+        })
+         .then((res)=>{})
          .catch((err)=>{console.log(err)})
         res.redirect("/users");
     }
@@ -60,7 +73,12 @@ class Controller{
     }
     async trash(req,res){
         const nameFilter = req.query.name|| '';
-        const usersdb = (await axios.get(`${process.env.USERS_API_URL}/deleted`,{
+        const url = req.protocol + '://' + req.get('host') + '/api/users/deleted';
+        const usersdb = (await axios.get(url,{
+            auth:{ 
+                username: res.locals.admin.email,
+                password: res.locals.admin.password
+            },
             params:{
                 sort : {
                     field : req.query.field,
@@ -103,36 +121,45 @@ class Controller{
     }
     async update(req,res){
         const id = req.params.id;
+        const url = req.protocol + '://' + req.get('host') + '/api/users';
         const newU = {
             name: req.body.name,
             email: req.body.email,
             phone: req.body.phone,
             address: req.body.address
         };
-        const user = (await axios.get(`${process.env.USERS_API_URL}/${id}`,newU)).data
+        const user = (await axios.get(`${url}/${id}`,newU)).data
         res.render('users/update',{
             user
         })
     }
     async update_post(req,res){
         const id = req.params.id
+        const url = req.protocol + '://' + req.get('host') + '/api/users';
         const newU = {
             name: req.body.name,
             email: req.body.email,
             phone: req.body.phone,
             address: req.body.address
         };
-        await axios.put(`${process.env.USERS_API_URL}/${id}`,newU)
+        await axios.put(`${url}/${id}`,newU)
         res.redirect('/users');
     }
     async restore(req,res){
         const id = req.params.id
-        await axios.patch(`${process.env.USERS_API_URL}/restore/${id}`);
+        const url = req.protocol + '://' + req.get('host') + '/api/users';
+        await axios.patch(`${url}/restore/${id}`);
         res.redirect('/users')
     }
     async delete(req,res){
         const id = req.params.id
-        await axios.delete(`${process.env.USERS_API_URL}/delete/${id}`)
+        const url = req.protocol + '://' + req.get('host') + '/api/users';
+        await axios.delete(`${url}/delete/${id}`,{
+            auth:{ 
+                username: res.locals.admin.email,
+                password: res.locals.admin.password
+            }
+        })
         .then()
         .catch((err)=>{
             console.log(err);

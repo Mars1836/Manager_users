@@ -1,0 +1,19 @@
+.log-form{
+    position: relative !important;
+}
+.log-body{
+	width: max-content !important;
+	position: absolute !important;
+	left:-60px !important;
+	top:40px !important;
+	
+}
+.log-body ul li{
+	padding: 0px !important;
+}
+.log-body ul li button{
+	width: 7rem !important;
+}
+.log-body:hover{
+	background-color: rgb(175, 169, 169) !important;
+}
