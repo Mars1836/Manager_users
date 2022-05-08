@@ -19,6 +19,7 @@ import authMiddleware from "./middlewares/auth.middleware.js";
 import connectDB from "./database/connection.js";
 
 var csrfProtection = csrf({ cookie: true });
+const PORT = process.env.PORT||3000
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -51,6 +52,6 @@ app.use('/infor',authMiddleware.authLogin,inforRouter);
 
 app.use('/users',authMiddleware.authLogin,routerUsers);
 
-app.listen(3000,()=>{
+app.listen(PORT,()=>{
     console.log('Server is running...');
 }) 
