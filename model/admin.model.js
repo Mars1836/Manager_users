@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-await mongoose.connect(process.env.MONGODB_URL+'/users_dev ');
+
 const adminScheme = mongoose.Schema(
     {
         email : String,

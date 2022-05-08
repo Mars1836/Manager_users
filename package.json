@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "run": "json-server --watch db.json",
-    "dev" : "nodemon --inspect index.js",
+    "dev": "nodemon --inspect index.js",
     "start": "node index.js ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

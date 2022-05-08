@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import mongoose_delete from 'mongoose-delete';
-await mongoose.connect(process.env.MONGODB_URL+'/users_dev ');
 
 var userSchema = new mongoose.Schema({
       name: String,
